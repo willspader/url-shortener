@@ -12,7 +12,8 @@ func LongUrlToShortUrl(c *gin.Context) {
 	var longUrl types.Url
 
 	if err := c.BindJSON(&longUrl); err != nil {
-		return // TODO
+		c.JSON(http.StatusBadRequest, err) // TODO better return message
+		return
 	}
 
 	c.JSON(http.StatusOK, longUrl)
