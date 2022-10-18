@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 
-	"url-shortener/internal/handlers"
+	"url-shortener/pkg/handlers"
 )
 
 func StartHttpServer() {

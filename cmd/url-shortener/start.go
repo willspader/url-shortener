@@ -1,7 +1,7 @@
 package main
 
 import (
-	"url-shortener/internal/server"
+	"url-shortener/pkg/server"
 )
 
 func main() {
