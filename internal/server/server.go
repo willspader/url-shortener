@@ -1,9 +1,9 @@
-package main
+package server
 
 import (
 	"github.com/gin-gonic/gin"
 
-	"url-shortener/app/api"
+	"url-shortener/internal/handlers"
 )
 
 func StartHttpServer() {
@@ -15,7 +15,7 @@ func StartHttpServer() {
 }
 
 func makeRoutes(router *gin.Engine) {
-	router.GET("/", api.CheckUpServer)
+	router.GET("/", handlers.HealthCheck)
 
-	router.POST("/url", api.LongUrlToShortUrl)
+	router.POST("/url", handlers.LongToShort)
 }
