@@ -6,9 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
-
-func Connect() *sql.DB {
+func Open() *sql.DB {
 
 	db, err := sql.Open("mysql", "url_shortener_app:admin@localhost:3306")
 	if err != nil {
@@ -16,8 +14,4 @@ func Connect() *sql.DB {
 	}
 
 	return db
-}
-
-func Ping() error {
-	return db.Ping()
 }
