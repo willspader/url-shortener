@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func Open() *sql.DB {
+func DatabaseConnection() *sql.DB {
 
 	db, err := sql.Open("mysql", "url_shortener_app:admin@localhost:3306")
 	if err != nil {
