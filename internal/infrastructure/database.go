@@ -8,7 +8,7 @@ import (
 
 func DatabaseConnection() *sql.DB {
 
-	db, err := sql.Open("mysql", "url_shortener_app:admin@localhost:3306")
+	db, err := sql.Open("mysql", "url_shortener_app:url_shortener_pwd@/url_shortener_db")
 	if err != nil {
 		panic(err.Error()) // TODO better error handling
 	}

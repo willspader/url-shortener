@@ -8,10 +8,9 @@ import (
 )
 
 func StartHttpServer(service *service.Service) {
-	var router *gin.Engine = gin.Default()
-
 	var controller *controller.Controller = controller.CreateController(service)
 
+	var router *gin.Engine = gin.Default()
 	makeRoutes(router, controller)
 
 	router.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")

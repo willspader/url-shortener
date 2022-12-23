@@ -11,9 +11,9 @@ import (
 func main() {
 	var db *sql.DB = infrastructure.DatabaseConnection()
 
-	var repository *repository.Repository = repository.CreateRepository(db)
+	var repository *repository.Repository = repository.New(db)
 
-	var service *service.Service = service.CreateService(repository)
+	var service *service.Service = service.New(repository)
 
 	server.StartHttpServer(service)
 }

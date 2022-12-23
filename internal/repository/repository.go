@@ -1,11 +1,27 @@
 package repository
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type Repository struct {
 	db *sql.DB
 }
 
-func CreateRepository(db *sql.DB) *Repository {
+func (repository Repository) NewRecord() int64 {
+	result, err := repository.db.Exec("INSERT INTO URL_SHORTENER (LONG_URL) VALUES (null)")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return id
+}
+
+func New(db *sql.DB) *Repository {
 	return &Repository{db: db}
 }
