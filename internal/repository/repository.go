@@ -8,7 +8,7 @@ type Repository struct {
 	db *sql.DB
 }
 
-func (repository Repository) NewRecord() int64 {
+func (repository Repository) NewId() int64 {
 	result, err := repository.db.Exec("INSERT INTO URL_SHORTENER (LONG_URL) VALUES (null)")
 	if err != nil {
 		panic(err.Error())

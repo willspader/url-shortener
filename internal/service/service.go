@@ -1,7 +1,6 @@
 package service
 
 import (
-	"math"
 	"url-shortener/internal/repository"
 )
 
@@ -10,18 +9,24 @@ type Service struct {
 }
 
 func (service Service) LongToShort() string {
-	var id int64 = service.repository.NewRecord()
-	println(id)
-	// TODO -> convert id to base62 representation
-	return ""
+	var id int64 = service.repository.NewId()
+
+	var shortUrl string
+
+	for id > 0 {
+		var remainder int64 = id % 62
+
+		var ascii byte = fromDecimalToAscii(byte(remainder))
+
+		shortUrl = string(ascii) + shortUrl
+
+		id = id / 62
+	}
+
+	return shortUrl
 }
 
-func (service Service) convertToBase(number int64, base int8) {
-
-}
-
-// Convert a [BASE 62] string to its decimal representation [uint64]
-func (service Service) convertToDecimal(shortUrl string) int64 {
+/*func (service Service) convertToDecimal(shortUrl string) int64 {
 	var sum int64 = 0
 	var reversed []byte = reverseString(shortUrl)
 
@@ -32,10 +37,9 @@ func (service Service) convertToDecimal(shortUrl string) int64 {
 	}
 
 	return sum
-}
+}*/
 
-// find the integer representation from a byte value
-func toDecimalFromAscii(char byte) byte {
+/*func toDecimalFromAscii(char byte) byte {
 	if char >= 48 && char <= 57 {
 		return char - 48
 	}
@@ -45,6 +49,18 @@ func toDecimalFromAscii(char byte) byte {
 	}
 
 	return char - 61
+}*/
+
+func fromDecimalToAscii(digit byte) byte {
+	if digit < 10 {
+		return digit + 48
+	}
+
+	if digit >= 10 && digit <= 35 {
+		return digit + 55
+	}
+
+	return digit + 61
 }
 
 // reverse a ASCII string
