@@ -1,6 +1,6 @@
 ### Technical Solution
 
-This was implemented only for learning some of golang ecosystem, such as syntax, manual dependency injection, relational database communication, and etc.
+This was implemented only for learning some of the golang ecosystem, such as syntax, manual dependency injection, relational database communication, etc.
 
 Although the system works and does what it should be done, it can not be used as a real implementation of a URL Shortener system:
 
