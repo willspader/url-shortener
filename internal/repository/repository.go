@@ -22,6 +22,10 @@ func (repository Repository) NewId() int64 {
 	return id
 }
 
+func (repository Repository) UpdateRecord(id int64, url string) {
+	repository.db.Exec("UPDATE URL_SHORTENER SET LONG_URL = ? WHERE ID = ?", id, url)
+}
+
 func New(db *sql.DB) *Repository {
 	return &Repository{db: db}
 }

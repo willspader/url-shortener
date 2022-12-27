@@ -8,8 +8,9 @@ type Service struct {
 	repository *repository.Repository
 }
 
-func (service Service) LongToShort() string {
-	var id int64 = service.repository.NewId()
+func (service Service) LongToShort(longUrl string) string {
+	var originalId int64 = service.repository.NewId()
+	var id int64 = originalId
 
 	var shortUrl string
 
@@ -23,7 +24,14 @@ func (service Service) LongToShort() string {
 		id = id / 62
 	}
 
+	service.repository.UpdateRecord(originalId, longUrl)
+
 	return shortUrl
+}
+
+func (service Service) shortToLong() {
+	// convert BASE62 to decimal int64
+	// get long url from database & return it
 }
 
 /*func (service Service) convertToDecimal(shortUrl string) int64 {
@@ -31,7 +39,7 @@ func (service Service) LongToShort() string {
 	var reversed []byte = reverseString(shortUrl)
 
 	for i := 0; i < len(reversed); i++ {
-		var ascii byte = toDecimalFromAscii(reversed[i])
+		var ascii byte = fromAsciiToDecimal(reversed[i])
 
 		sum += int64(ascii) * int64((math.Pow(float64(62), float64(i))))
 	}
@@ -39,7 +47,7 @@ func (service Service) LongToShort() string {
 	return sum
 }*/
 
-/*func toDecimalFromAscii(char byte) byte {
+/*func fromAsciiToDecimal(char byte) byte {
 	if char >= 48 && char <= 57 {
 		return char - 48
 	}

@@ -5,6 +5,9 @@ import (
 
 	"url-shortener/internal/controller"
 	"url-shortener/internal/service"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func StartHttpServer(service *service.Service) {
@@ -20,4 +23,6 @@ func makeRoutes(router *gin.Engine, controller *controller.Controller) {
 	router.GET("/", controller.HealthCheck)
 
 	router.POST("/url", controller.LongToShort)
+
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

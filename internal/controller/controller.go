@@ -26,7 +26,7 @@ func (controller Controller) LongToShort(c *gin.Context) {
 		return
 	}
 
-	var shortUrl string = controller.service.LongToShort()
+	var shortUrl string = controller.service.LongToShort(longUrl.Name)
 	var response types.Url = types.Url{Name: shortUrl}
 	c.JSON(http.StatusOK, response)
 }

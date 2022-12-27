@@ -8,6 +8,9 @@ import (
 	"url-shortener/pkg/server"
 )
 
+//	@title			URL Shortener API Documentation
+//	@version		1.0
+
 func main() {
 	var db *sql.DB = infrastructure.DatabaseConnection()
 
