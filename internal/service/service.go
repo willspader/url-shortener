@@ -73,7 +73,7 @@ func fromDecimalToAscii(digit byte) byte {
 	return digit + 61
 }
 
-// reverse a ASCII string
+// reverse an ASCII string
 func reverseString(original string) []byte {
 	var chars []byte = []byte(original)
 

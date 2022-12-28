@@ -14,7 +14,7 @@ type Controller struct {
 	service *service.Service
 }
 
-// LongToShort take a url and return its short representation.
+// LongToShort receives a url and return its short representation.
 // It expect a valid json request to deserialize to types.Url struct.
 // It returns http status 200 and types.Url when everything went okay.
 // It returns http status 422 and types.Message in deserialization errors.
@@ -31,6 +31,8 @@ func (controller Controller) LongToShort(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// ShortToLong receives a short url as uri parameter and return w/ a redirect to the long url previously registered.
+// It returns an http response with status 307 (redirect to the long url)
 func (controller Controller) ShortToLong(c *gin.Context) {
 	var shortUrl string = c.Param("url")
 
