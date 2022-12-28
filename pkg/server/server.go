@@ -22,7 +22,10 @@ func StartHttpServer(service *service.Service) {
 func makeRoutes(router *gin.Engine, controller *controller.Controller) {
 	router.GET("/", controller.HealthCheck)
 
+	router.GET("/url/:url", controller.ShortToLong)
+
 	router.POST("/url", controller.LongToShort)
 
+	// API Documentation - Swagger
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

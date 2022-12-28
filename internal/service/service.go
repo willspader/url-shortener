@@ -1,6 +1,7 @@
 package service
 
 import (
+	"math"
 	"url-shortener/internal/repository"
 )
 
@@ -29,13 +30,14 @@ func (service Service) LongToShort(longUrl string) string {
 	return shortUrl
 }
 
-func (service Service) shortToLong() {
-	// convert BASE62 to decimal int64
-	// get long url from database & return it
+func (service Service) ShortToLong(shortUrl string) string {
+	var id int64 = convertToDecimal(shortUrl)
+	return service.repository.GetLongUrl(id)
 }
 
-/*func (service Service) convertToDecimal(shortUrl string) int64 {
+func convertToDecimal(shortUrl string) int64 {
 	var sum int64 = 0
+
 	var reversed []byte = reverseString(shortUrl)
 
 	for i := 0; i < len(reversed); i++ {
@@ -45,9 +47,9 @@ func (service Service) shortToLong() {
 	}
 
 	return sum
-}*/
+}
 
-/*func fromAsciiToDecimal(char byte) byte {
+func fromAsciiToDecimal(char byte) byte {
 	if char >= 48 && char <= 57 {
 		return char - 48
 	}
@@ -57,7 +59,7 @@ func (service Service) shortToLong() {
 	}
 
 	return char - 61
-}*/
+}
 
 func fromDecimalToAscii(digit byte) byte {
 	if digit < 10 {
@@ -75,7 +77,7 @@ func fromDecimalToAscii(digit byte) byte {
 func reverseString(original string) []byte {
 	var chars []byte = []byte(original)
 
-	for i, j := 0, len(chars); i < j; i, j = i+1, j-1 {
+	for i, j := 0, len(chars)-1; i < j; i, j = i+1, j-1 {
 		chars[i], chars[j] = chars[j], chars[i]
 	}
 

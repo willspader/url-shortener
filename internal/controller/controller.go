@@ -31,6 +31,14 @@ func (controller Controller) LongToShort(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+func (controller Controller) ShortToLong(c *gin.Context) {
+	var shortUrl string = c.Param("url")
+
+	var longUrl string = controller.service.ShortToLong(shortUrl)
+
+	c.Redirect(http.StatusTemporaryRedirect, longUrl)
+}
+
 // HealthCheck can be used to know if the server is running, like a health check endpoint.
 // It returns http status 200 and a dummy types.Message if the server is up.
 func (controller Controller) HealthCheck(c *gin.Context) {

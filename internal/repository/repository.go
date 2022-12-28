@@ -23,7 +23,16 @@ func (repository Repository) NewId() int64 {
 }
 
 func (repository Repository) UpdateRecord(id int64, url string) {
-	repository.db.Exec("UPDATE URL_SHORTENER SET LONG_URL = ? WHERE ID = ?", id, url)
+	repository.db.Exec("UPDATE URL_SHORTENER SET LONG_URL = ? WHERE ID = ?", url, id)
+}
+
+func (repository Repository) GetLongUrl(id int64) string {
+	var row *sql.Row = repository.db.QueryRow("SELECT LONG_URL FROM URL_SHORTENER WHERE ID = ?", id)
+
+	var longUrlPtr *string
+	row.Scan(&longUrlPtr)
+
+	return *longUrlPtr
 }
 
 func New(db *sql.DB) *Repository {
