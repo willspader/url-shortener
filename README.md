@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS URL_SHORTENER
 ### Run App
 
 ```
-go run cmd/url-shortener/start.go
+go run cmd/url-shortener/main.go
 ```
 
 ### API Documentation
