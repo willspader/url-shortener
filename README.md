@@ -35,3 +35,15 @@ CREATE TABLE IF NOT EXISTS URL_SHORTENER
 ```
 go run cmd/url-shortener/start.go
 ```
+
+### API Documentation
+
+```
+http://localhost:8080/docs/index.html
+```
+
+Run swag init to generate docs if any change was made.
+
+```
+swag init -g cmd/url-shortener/main.go
+```

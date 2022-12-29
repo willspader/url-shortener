@@ -11,7 +11,7 @@ import (
 )
 
 func StartHttpServer(service *service.Service) {
-	var controller *controller.Controller = controller.CreateController(service)
+	var controller *controller.Controller = controller.New(service)
 
 	var router *gin.Engine = gin.Default()
 	makeRoutes(router, controller)

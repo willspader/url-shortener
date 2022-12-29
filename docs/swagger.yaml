@@ -1,0 +1,53 @@
+definitions:
+  types.Message:
+    properties:
+      msg:
+        type: string
+    type: object
+  types.Url:
+    properties:
+      url:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: URL Shortener API Documentation
+  version: "1.0"
+paths:
+  /:
+    get:
+      operationId: health-check
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Message'
+      summary: Can be used to know if the server is running.
+  /url:
+    post:
+      operationId: long-to-short
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Url'
+      summary: receives a url and return its short representation.
+  /url/{url}:
+    get:
+      operationId: short-to-long
+      parameters:
+      - description: url
+        in: path
+        name: url
+        required: true
+        type: string
+      responses:
+        "307":
+          description: Temporary Redirect
+          schema:
+            type: string
+      summary: receives a short url as uri parameter and return w/ a redirect to the
+        long url previously registered.
+swagger: "2.0"

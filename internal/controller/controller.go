@@ -8,16 +8,19 @@ import (
 	"net/http"
 
 	"url-shortener/internal/service"
+
+	_ "url-shortener/docs"
 )
 
 type Controller struct {
 	service *service.Service
 }
 
-// LongToShort receives a url and return its short representation.
-// It expect a valid json request to deserialize to types.Url struct.
-// It returns http status 200 and types.Url when everything went okay.
-// It returns http status 422 and types.Message in deserialization errors.
+// @Summary receives a url and return its short representation.
+// @ID long-to-short
+// @Produce json
+// @Success 200 {object} types.Url
+// @Router /url [post]
 func (controller Controller) LongToShort(c *gin.Context) {
 	var longUrl types.Url
 
@@ -31,8 +34,11 @@ func (controller Controller) LongToShort(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// ShortToLong receives a short url as uri parameter and return w/ a redirect to the long url previously registered.
-// It returns an http response with status 307 (redirect to the long url)
+// @Summary receives a short url as uri parameter and return w/ a redirect to the long url previously registered.
+// @ID short-to-long
+// @Param url path string true "url"
+// @Success 307 {string} longUrl
+// @Router /url/{url} [get]
 func (controller Controller) ShortToLong(c *gin.Context) {
 	var shortUrl string = c.Param("url")
 
@@ -41,12 +47,14 @@ func (controller Controller) ShortToLong(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, longUrl)
 }
 
-// HealthCheck can be used to know if the server is running, like a health check endpoint.
-// It returns http status 200 and a dummy types.Message if the server is up.
+// @Summary Can be used to know if the server is running.
+// @ID health-check
+// @Success 200 {object} types.Message
+// @Router / [get]
 func (controller Controller) HealthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, types.Message{Msg: "UP"})
 }
 
-func CreateController(service *service.Service) *Controller {
+func New(service *service.Service) *Controller {
 	return &Controller{service: service}
 }
